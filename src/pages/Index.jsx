@@ -104,6 +104,58 @@ const Index = () => {
             )}
           </CardContent>
         </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Monthly Revenue</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-gray-600">This chart shows the company's monthly revenue over the past year.</p>
+            <iframe
+              src="https://charts.mongodb.com/charts-project-0-qsuqx/embed/charts?id=65a5a8c4-5a8e-4a7a-8a1b-e2c9c9f5f5f5&maxDataAge=3600&theme=light&autoRefresh=true"
+              className="w-full h-64 border-0"
+            ></iframe>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Customer Growth</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-gray-600">This chart displays the growth in customer base over time.</p>
+            <iframe
+              src="https://charts.mongodb.com/charts-project-0-qsuqx/embed/charts?id=65a5a8c4-5a8e-4a7a-8a1b-e2c9c9f5f5f6&maxDataAge=3600&theme=light&autoRefresh=true"
+              className="w-full h-64 border-0"
+            ></iframe>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Product Sales Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-gray-600">This pie chart illustrates the distribution of sales across different product categories.</p>
+            <iframe
+              src="https://charts.mongodb.com/charts-project-0-qsuqx/embed/charts?id=65a5a8c4-5a8e-4a7a-8a1b-e2c9c9f5f5f7&maxDataAge=3600&theme=light&autoRefresh=true"
+              className="w-full h-64 border-0"
+            ></iframe>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Website Traffic Sources</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-gray-600">This chart shows the breakdown of website traffic sources over the last month.</p>
+            <iframe
+              src="https://charts.mongodb.com/charts-project-0-qsuqx/embed/charts?id=65a5a8c4-5a8e-4a7a-8a1b-e2c9c9f5f5f8&maxDataAge=3600&theme=light&autoRefresh=true"
+              className="w-full h-64 border-0"
+            ></iframe>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
