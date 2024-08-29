@@ -1,11 +1,109 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import { motion } from 'framer-motion';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const fetchCryptoData = async () => {
+  // Simulated API call
+  return [
+    { name: 'Jan', btc: 4000, eth: 2400 },
+    { name: 'Feb', btc: 3000, eth: 1398 },
+    { name: 'Mar', btc: 2000, eth: 9800 },
+    { name: 'Apr', btc: 2780, eth: 3908 },
+    { name: 'May', btc: 1890, eth: 4800 },
+    { name: 'Jun', btc: 2390, eth: 3800 },
+  ];
+};
+
+const fetchNewsHeadlines = async () => {
+  // Simulated API call
+  return [
+    { id: 1, title: "Major Bank Partners with Crypto Exchange", date: "2023-03-15" },
+    { id: 2, title: "New Blockchain Alliance Formed by Tech Giants", date: "2023-03-14" },
+    { id: 3, title: "Crypto Startup Secures $100M in Funding", date: "2023-03-13" },
+  ];
+};
+
+const NewsCard = ({ title, date }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="bg-white p-4 rounded-lg shadow-md mb-4"
+  >
+    <h3 className="font-semibold text-lg">{title}</h3>
+    <p className="text-sm text-gray-500">{date}</p>
+  </motion.div>
+);
 
 const Index = () => {
+  const { data: cryptoData, isLoading: isLoadingCrypto } = useQuery({
+    queryKey: ['cryptoData'],
+    queryFn: fetchCryptoData,
+  });
+
+  const { data: newsHeadlines, isLoading: isLoadingNews } = useQuery({
+    queryKey: ['newsHeadlines'],
+    queryFn: fetchNewsHeadlines,
+  });
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl font-bold mb-8 text-center"
+      >
+        Crypto Analytics Dashboard
+      </motion.h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Crypto Price Trends</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isLoadingCrypto ? (
+              <Skeleton className="w-full h-[300px]" />
+            ) : (
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={cryptoData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="btc" stroke="#8884d8" activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="eth" stroke="#82ca9d" />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Latest Crypto News</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {isLoadingNews ? (
+              <div className="space-y-2">
+                <Skeleton className="h-[60px] w-full" />
+                <Skeleton className="h-[60px] w-full" />
+                <Skeleton className="h-[60px] w-full" />
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {newsHeadlines.map((headline) => (
+                  <NewsCard key={headline.id} title={headline.title} date={headline.date} />
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
