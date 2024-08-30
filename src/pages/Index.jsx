@@ -224,17 +224,30 @@ const Index = () => {
       </div>
 
       <h2 className="text-2xl font-semibold mb-4 text-black">Market Metrics</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {isLoadingMetrics ? (
           <>
             <Skeleton className="h-[300px] w-full" />
             <Skeleton className="h-[300px] w-full" />
-            <Skeleton className="h-[300px] w-full" />
           </>
         ) : (
-          marketMetrics.map((metric, index) => (
+          marketMetrics.slice(0, 2).map((metric, index) => (
             <MetricCard key={index} title={metric.title} description={metric.description} data={metric.data} chartType={metric.chartType} />
           ))
+        )}
+      </div>
+      <div className="mb-8">
+        {isLoadingMetrics ? (
+          <Skeleton className="h-[300px] w-full" />
+        ) : (
+          marketMetrics[2] && (
+            <MetricCard
+              title={marketMetrics[2].title}
+              description={marketMetrics[2].description}
+              data={marketMetrics[2].data}
+              chartType={marketMetrics[2].chartType}
+            />
+          )
         )}
       </div>
 
