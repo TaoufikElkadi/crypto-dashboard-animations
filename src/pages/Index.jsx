@@ -33,7 +33,7 @@ const NewsCard = ({ title, date }) => (
     transition={{ duration: 0.5 }}
     className="bg-white p-4 rounded-lg shadow-md mb-4"
   >
-    <h3 className="font-semibold text-lg">{title}</h3>
+    <h3 className="font-semibold text-lg text-blue-600">{title}</h3>
     <p className="text-sm text-gray-500">{date}</p>
   </motion.div>
 );
@@ -55,7 +55,7 @@ const Index = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-8 text-center"
+        className="text-4xl font-bold mb-8 text-center text-blue-600"
       >
         Crypto Analytics Dashboard
       </motion.h1>
@@ -63,7 +63,7 @@ const Index = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card>
           <CardHeader>
-            <CardTitle>Crypto Price Trends</CardTitle>
+            <CardTitle className="text-blue-600">Crypto Price Trends</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoadingCrypto ? (
@@ -86,7 +86,7 @@ const Index = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Latest Crypto News</CardTitle>
+            <CardTitle className="text-blue-600">Latest Crypto News</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoadingNews ? (
@@ -107,7 +107,7 @@ const Index = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Monthly Revenue</CardTitle>
+            <CardTitle className="text-blue-600">Monthly Revenue</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-gray-600">This chart shows the company's monthly revenue over the past year.</p>
@@ -120,7 +120,7 @@ const Index = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Customer Growth</CardTitle>
+            <CardTitle className="text-blue-600">Customer Growth</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-gray-600">This chart displays the growth in customer base over time.</p>
@@ -133,7 +133,7 @@ const Index = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Product Sales Distribution</CardTitle>
+            <CardTitle className="text-blue-600">Product Sales Distribution</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-gray-600">This pie chart illustrates the distribution of sales across different product categories.</p>
@@ -146,7 +146,7 @@ const Index = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>Website Traffic Sources</CardTitle>
+            <CardTitle className="text-blue-600">Website Traffic Sources</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-gray-600">This chart shows the breakdown of website traffic sources over the last month.</p>
