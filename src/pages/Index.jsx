@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, ExternalLink } from 'lucide-react';
 
@@ -65,34 +64,11 @@ const ImageCard = ({ title, imageSrc, link }) => (
   </motion.div>
 );
 
-const ProjectSpotlight = ({ project }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5 }}
-    className="bg-white rounded-lg shadow-md overflow-hidden"
-  >
-    <CardHeader>
-      <CardTitle className="text-black">Project Spotlight: {project.name}</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <img src={project.image} alt={project.name} className="w-full h-48 object-cover mb-4 rounded-md" />
-      <p className="text-black">{project.description}</p>
-    </CardContent>
-  </motion.div>
-);
-
 const Index = () => {
   const { data: industryNews, isLoading: isLoadingNews } = useQuery({
     queryKey: ['industryNews'],
     queryFn: fetchIndustryNews,
   });
-
-  const projectSpotlight = {
-    name: "Uniswap V3",
-    image: "https://uniswap.org/images/twitter-card.jpg",
-    description: "Uniswap V3 introduces concentrated liquidity, allowing liquidity providers to allocate capital more efficiently and potentially earn higher returns.",
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
@@ -147,18 +123,26 @@ const Index = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <ImageCard
           title="Smart Contract Deployments"
-          imageSrc="https://tokenterminal.com/terminal/metrics/contracts-deployed?v=ZDM5OTM3YTc5OGEyY2I4YWRiNjQ4MDQz/embed/competitive-landscape"
+          imageSrc="/placeholder.svg"
           link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
         />
         <ImageCard
           title="Revenue"
-          imageSrc="https://tokenterminal.com/terminal/metrics/revenue?v=YTA1NjFmY2IyZmViNjQ5ODNkNDk3YjQ4/embed/competitive-landscape"
+          imageSrc="/placeholder.svg"
           link="https://tokenterminal.com/terminal/metrics/revenue"
         />
       </div>
 
-      <h2 className="text-2xl font-semibold mb-4 text-black">Project Spotlight</h2>
-      <ProjectSpotlight project={projectSpotlight} />
+      <h2 className="text-2xl font-semibold mb-4 text-black">Project Spotlight: Story Protocol</h2>
+      <Card>
+        <CardContent className="p-6">
+          <img 
+            src="/placeholder.svg" 
+            alt="Story Protocol for beginners" 
+            className="w-full h-auto object-contain rounded-lg shadow-lg"
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 };
