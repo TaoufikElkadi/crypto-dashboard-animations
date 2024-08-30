@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,44 +20,6 @@ const fetchIndustryNews = async () => {
   };
 };
 
-const fetchMarketMetrics = async () => {
-  // Simulated API call
-  return [
-    {
-      title: "Daily Active Addresses",
-      description: "Number of unique addresses active in the network as a sender or receiver.",
-      data: [
-        { name: 'Jan', BTC: 1000000, ETH: 750000, SOL: 500000 },
-        { name: 'Feb', BTC: 1100000, ETH: 800000, SOL: 550000 },
-        { name: 'Mar', BTC: 1050000, ETH: 780000, SOL: 520000 },
-        { name: 'Apr', BTC: 1200000, ETH: 850000, SOL: 600000 },
-      ],
-      chartType: 'line',
-    },
-    {
-      title: "Smart Contract Deployments",
-      description: "Number of new smart contracts deployed on various chains in the last 24 hours.",
-      data: [
-        { name: 'ETH', value: 5000 },
-        { name: 'BSC', value: 3500 },
-        { name: 'AVAX', value: 2000 },
-      ],
-      chartType: 'bar',
-    },
-    {
-      title: "Total Value Locked (TVL)",
-      description: "Total value locked in DeFi protocols across different chains.",
-      data: [
-        { name: 'Jan', ETH: 20, BSC: 15, AVAX: 10 },
-        { name: 'Feb', ETH: 22, BSC: 16, AVAX: 11 },
-        { name: 'Mar', ETH: 25, BSC: 18, AVAX: 13 },
-        { name: 'Apr', ETH: 28, BSC: 20, AVAX: 15 },
-      ],
-      chartType: 'area',
-    },
-  ];
-};
-
 const NewsCard = ({ title, link }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -75,70 +36,21 @@ const NewsCard = ({ title, link }) => (
   </motion.div>
 );
 
-const MetricCard = ({ title, description, data, chartType }) => {
-  const renderChart = () => {
-    switch (chartType) {
-      case 'line':
-        return (
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="BTC" stroke="#f7931a" />
-            <Line type="monotone" dataKey="ETH" stroke="#627eea" />
-            <Line type="monotone" dataKey="SOL" stroke="#00ffa3" />
-          </LineChart>
-        );
-      case 'bar':
-        return (
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#3b82f6" />
-          </BarChart>
-        );
-      case 'area':
-        return (
-          <AreaChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area type="monotone" dataKey="ETH" stackId="1" stroke="#627eea" fill="#627eea" />
-            <Area type="monotone" dataKey="BSC" stackId="1" stroke="#f3ba2f" fill="#f3ba2f" />
-            <Area type="monotone" dataKey="AVAX" stackId="1" stroke="#e84142" fill="#e84142" />
-          </AreaChart>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white rounded-lg shadow-md overflow-hidden"
-    >
-      <CardHeader>
-        <CardTitle className="text-black">{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-4 text-black">{description}</p>
-        <ResponsiveContainer width="100%" height={200}>
-          {renderChart()}
-        </ResponsiveContainer>
-      </CardContent>
-    </motion.div>
-  );
-};
+const IframeCard = ({ title, src }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5 }}
+    className="bg-white rounded-lg shadow-md overflow-hidden"
+  >
+    <CardHeader>
+      <CardTitle className="text-black">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <iframe src={src} width="100%" height="950" frameBorder="0" title={title}></iframe>
+    </CardContent>
+  </motion.div>
+);
 
 const ProjectSpotlight = ({ project }) => (
   <motion.div
@@ -161,11 +73,6 @@ const Index = () => {
   const { data: industryNews, isLoading: isLoadingNews } = useQuery({
     queryKey: ['industryNews'],
     queryFn: fetchIndustryNews,
-  });
-
-  const { data: marketMetrics, isLoading: isLoadingMetrics } = useQuery({
-    queryKey: ['marketMetrics'],
-    queryFn: fetchMarketMetrics,
   });
 
   const projectSpotlight = {
@@ -224,31 +131,15 @@ const Index = () => {
       </div>
 
       <h2 className="text-2xl font-semibold mb-4 text-black">Market Metrics</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        {isLoadingMetrics ? (
-          <>
-            <Skeleton className="h-[300px] w-full" />
-            <Skeleton className="h-[300px] w-full" />
-          </>
-        ) : (
-          marketMetrics.slice(0, 2).map((metric, index) => (
-            <MetricCard key={index} title={metric.title} description={metric.description} data={metric.data} chartType={metric.chartType} />
-          ))
-        )}
-      </div>
-      <div className="mb-8">
-        {isLoadingMetrics ? (
-          <Skeleton className="h-[300px] w-full" />
-        ) : (
-          marketMetrics[2] && (
-            <MetricCard
-              title={marketMetrics[2].title}
-              description={marketMetrics[2].description}
-              data={marketMetrics[2].data}
-              chartType={marketMetrics[2].chartType}
-            />
-          )
-        )}
+      <div className="grid grid-cols-1 gap-8 mb-8">
+        <IframeCard
+          title="Smart Contract Deployments"
+          src="https://tokenterminal.com/terminal/metrics/contracts-deployed?v=ZDM5OTM3YTc5OGEyY2I4YWRiNjQ4MDQz/embed/competitive-landscape"
+        />
+        <IframeCard
+          title="Revenue"
+          src="https://tokenterminal.com/terminal/metrics/revenue?v=YTA1NjFmY2IyZmViNjQ5ODNkNDk3YjQ4/embed/competitive-landscape"
+        />
       </div>
 
       <h2 className="text-2xl font-semibold mb-4 text-black">Project Spotlight</h2>
