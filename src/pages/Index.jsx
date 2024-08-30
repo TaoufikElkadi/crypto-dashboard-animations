@@ -137,12 +137,18 @@ const Index = () => {
       <Card>
         <CardContent className="p-6">
           <img 
-            src="/placeholder.svg" 
+            src="/story-protocol.png" 
             alt="Story Protocol for beginners" 
             className="w-full h-auto object-contain rounded-lg shadow-lg"
           />
         </CardContent>
       </Card>
+      <p className="mt-4 text-sm text-gray-600">
+        Story Protocol is the world's first IP Blockchain, designed to make intellectual property programmable. 
+        It offers a universal license agreement to tokenize IP and set legally binding license terms. 
+        The protocol uses a Proof-of-Creativity mechanism to manage licenses (ERC-721) and royalties (ERC-20), 
+        powering applications from AI models to creator tools and IPFi.
+      </p>
     </div>
   );
 };
