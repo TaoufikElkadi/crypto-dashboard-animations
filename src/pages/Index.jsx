@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 
 const fetchIndustryNews = async () => {
   // Simulated API call
@@ -41,7 +41,7 @@ const NewsCard = ({ title, description, shortDescription, link }) => (
   </motion.div>
 );
 
-const IframeCard = ({ title, src }) => (
+const ImageCard = ({ title, imageSrc, link }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -52,7 +52,15 @@ const IframeCard = ({ title, src }) => (
       <CardTitle className="text-black">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <iframe src={src} width="100%" height="950" frameBorder="0" title={title}></iframe>
+      <img src={imageSrc} alt={title} className="w-full h-auto object-cover rounded-md" />
+      <a 
+        href={link} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
+      >
+        View full chart <ExternalLink className="ml-1 h-4 w-4" />
+      </a>
     </CardContent>
   </motion.div>
 );
@@ -136,14 +144,16 @@ const Index = () => {
       </div>
 
       <h2 className="text-2xl font-semibold mb-4 text-black">Market Metrics</h2>
-      <div className="grid grid-cols-1 gap-8 mb-8">
-        <IframeCard
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <ImageCard
           title="Smart Contract Deployments"
-          src="https://tokenterminal.com/terminal/metrics/contracts-deployed?v=ZDM5OTM3YTc5OGEyY2I4YWRiNjQ4MDQz/embed/competitive-landscape"
+          imageSrc="https://tokenterminal.com/terminal/metrics/contracts-deployed?v=ZDM5OTM3YTc5OGEyY2I4YWRiNjQ4MDQz/embed/competitive-landscape"
+          link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
         />
-        <IframeCard
+        <ImageCard
           title="Revenue"
-          src="https://tokenterminal.com/terminal/metrics/revenue?v=YTA1NjFmY2IyZmViNjQ5ODNkNDk3YjQ4/embed/competitive-landscape"
+          imageSrc="https://tokenterminal.com/terminal/metrics/revenue?v=YTA1NjFmY2IyZmViNjQ5ODNkNDk3YjQ4/embed/competitive-landscape"
+          link="https://tokenterminal.com/terminal/metrics/revenue"
         />
       </div>
 
