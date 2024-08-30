@@ -10,29 +10,33 @@ const fetchIndustryNews = async () => {
   // Simulated API call
   return {
     partnerships: [
-      { id: 1, title: "Binance Partners with Mastercard for Crypto Card Launch", link: "https://twitter.com/binance/status/1234567890" },
-      { id: 2, title: "Coinbase and BlackRock Announce Strategic Partnership", link: "https://blog.coinbase.com/example-post" },
+      { id: 1, title: "Binance Partners with Mastercard", description: "Binance and Mastercard launch a new crypto card, expanding cryptocurrency usage in everyday transactions.", link: "https://twitter.com/binance/status/1234567890" },
+      { id: 2, title: "Coinbase and BlackRock Partnership", description: "Coinbase teams up with BlackRock to provide institutional clients with crypto trading and custody services.", link: "https://blog.coinbase.com/example-post" },
     ],
     vcRaises: [
-      { id: 1, title: "Ethereum Layer 2 Solution Optimism Raises $150M in Series B Funding", link: "https://twitter.com/optimismFND/status/1234567891" },
-      { id: 2, title: "DeFi Protocol Aave Secures $25M for Institutional Adoption", link: "https://medium.com/aave/example-post" },
+      { id: 1, title: "Optimism Raises $150M in Series B", description: "Ethereum Layer 2 solution Optimism secures $150M in Series B funding to scale its infrastructure.", link: "https://twitter.com/optimismFND/status/1234567891" },
+      { id: 2, title: "Aave Secures $25M for Institutional Adoption", description: "DeFi protocol Aave raises $25M to accelerate institutional adoption of decentralized finance.", link: "https://medium.com/aave/example-post" },
     ],
   };
 };
 
-const NewsCard = ({ title, link }) => (
+const NewsCard = ({ title, description, link }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    className="bg-white p-4 rounded-lg shadow-md mb-4"
+    className="bg-white p-6 rounded-lg shadow-sm mb-4 border border-gray-100"
   >
-    <h3 className="font-semibold text-lg text-black mb-2">{title}</h3>
-    <Button variant="outline" size="sm" className="mt-2">
-      <a href={link} target="_blank" rel="noopener noreferrer" className="flex items-center text-black">
-        Read More <ArrowRight className="ml-2 h-4 w-4" />
-      </a>
-    </Button>
+    <h3 className="font-semibold text-xl text-gray-800 mb-2">{title}</h3>
+    <p className="text-gray-600 mb-4">{description}</p>
+    <a 
+      href={link} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-blue-600 hover:text-blue-800 font-medium"
+    >
+      Read more <ArrowRight className="inline ml-1 h-4 w-4" />
+    </a>
   </motion.div>
 );
 
@@ -105,7 +109,7 @@ const Index = () => {
               </div>
             ) : (
               industryNews.partnerships.map((news) => (
-                <NewsCard key={news.id} title={news.title} link={news.link} />
+                <NewsCard key={news.id} title={news.title} description={news.description} link={news.link} />
               ))
             )}
           </CardContent>
@@ -123,7 +127,7 @@ const Index = () => {
               </div>
             ) : (
               industryNews.vcRaises.map((news) => (
-                <NewsCard key={news.id} title={news.title} link={news.link} />
+                <NewsCard key={news.id} title={news.title} description={news.description} link={news.link} />
               ))
             )}
           </CardContent>
