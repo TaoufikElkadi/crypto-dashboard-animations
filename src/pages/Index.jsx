@@ -10,32 +10,33 @@ const fetchIndustryNews = async () => {
   // Simulated API call
   return {
     partnerships: [
-      { id: 1, title: "Binance Partners with Mastercard", description: "Binance and Mastercard launch a new crypto card, expanding cryptocurrency usage in everyday transactions.", link: "https://twitter.com/binance/status/1234567890" },
-      { id: 2, title: "Coinbase and BlackRock Partnership", description: "Coinbase teams up with BlackRock to provide institutional clients with crypto trading and custody services.", link: "https://blog.coinbase.com/example-post" },
+      { id: 1, title: "Binance Partners with Mastercard", description: "Binance and Mastercard launch a new crypto card, expanding cryptocurrency usage in everyday transactions.", shortDescription: "New crypto card expands everyday crypto usage.", link: "https://twitter.com/binance/status/1234567890" },
+      { id: 2, title: "Coinbase and BlackRock Partnership", description: "Coinbase teams up with BlackRock to provide institutional clients with crypto trading and custody services.", shortDescription: "Institutional crypto services expanded through partnership.", link: "https://blog.coinbase.com/example-post" },
     ],
     vcRaises: [
-      { id: 1, title: "Optimism Raises $150M in Series B", description: "Ethereum Layer 2 solution Optimism secures $150M in Series B funding to scale its infrastructure.", link: "https://twitter.com/optimismFND/status/1234567891" },
-      { id: 2, title: "Aave Secures $25M for Institutional Adoption", description: "DeFi protocol Aave raises $25M to accelerate institutional adoption of decentralized finance.", link: "https://medium.com/aave/example-post" },
+      { id: 1, title: "Optimism Raises $150M in Series B", description: "Ethereum Layer 2 solution Optimism secures $150M in Series B funding to scale its infrastructure.", shortDescription: "Layer 2 solution secures major funding for scaling.", link: "https://twitter.com/optimismFND/status/1234567891" },
+      { id: 2, title: "Aave Secures $25M for Institutional Adoption", description: "DeFi protocol Aave raises $25M to accelerate institutional adoption of decentralized finance.", shortDescription: "DeFi protocol raises funds to boost institutional adoption.", link: "https://medium.com/aave/example-post" },
     ],
   };
 };
 
-const NewsCard = ({ title, description, link }) => (
+const NewsCard = ({ title, description, shortDescription, link }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    className="bg-white p-6 rounded-lg shadow-sm mb-4 border border-gray-100"
+    className="bg-white p-6 rounded-lg shadow-md mb-4 border border-gray-200"
   >
-    <h3 className="font-semibold text-xl text-gray-800 mb-2">{title}</h3>
-    <p className="text-gray-600 mb-4">{description}</p>
+    <h3 className="font-bold text-xl text-gray-800 mb-2">{title}</h3>
+    <p className="text-gray-600 mb-2 text-sm">{shortDescription}</p>
+    <p className="text-gray-700 mb-4 text-sm">{description}</p>
     <a 
       href={link} 
       target="_blank" 
       rel="noopener noreferrer" 
-      className="text-blue-600 hover:text-blue-800 font-medium"
+      className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center"
     >
-      Read more <ArrowRight className="inline ml-1 h-4 w-4" />
+      Read more <ArrowRight className="ml-1 h-4 w-4" />
     </a>
   </motion.div>
 );
@@ -104,12 +105,12 @@ const Index = () => {
           <CardContent>
             {isLoadingNews ? (
               <div className="space-y-2">
-                <Skeleton className="h-[60px] w-full" />
-                <Skeleton className="h-[60px] w-full" />
+                <Skeleton className="h-[120px] w-full" />
+                <Skeleton className="h-[120px] w-full" />
               </div>
             ) : (
               industryNews.partnerships.map((news) => (
-                <NewsCard key={news.id} title={news.title} description={news.description} link={news.link} />
+                <NewsCard key={news.id} title={news.title} description={news.description} shortDescription={news.shortDescription} link={news.link} />
               ))
             )}
           </CardContent>
@@ -122,12 +123,12 @@ const Index = () => {
           <CardContent>
             {isLoadingNews ? (
               <div className="space-y-2">
-                <Skeleton className="h-[60px] w-full" />
-                <Skeleton className="h-[60px] w-full" />
+                <Skeleton className="h-[120px] w-full" />
+                <Skeleton className="h-[120px] w-full" />
               </div>
             ) : (
               industryNews.vcRaises.map((news) => (
-                <NewsCard key={news.id} title={news.title} description={news.description} link={news.link} />
+                <NewsCard key={news.id} title={news.title} description={news.description} shortDescription={news.shortDescription} link={news.link} />
               ))
             )}
           </CardContent>
