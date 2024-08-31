@@ -150,7 +150,7 @@ const Index = () => {
               <ImageCard
                 title="Total Value Locked"
                 imageSrc="/AITokensMindshareKaito.jpeg"
-                description=" The chart highlights the market dominance of AI-focused cryptocurrencies, with TAO and NEAR leading in mindshare, accounting for 15.56% and 14.79% respectively, followed by FET at 8.95%."
+                description=" The chart highlights the market dominance fof AI-focused cryptocurrencies, with TAO and NEAR leading in mindshare, accounting for 15.56% and 14.79% respectively, followed by FET at 8.95%."
               />
             </CardContent>
           </Card>
