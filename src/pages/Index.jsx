@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ExternalLink, Menu } from 'lucide-react';
+import { ArrowRight, Menu } from 'lucide-react';
 
 const fetchIndustryNews = async () => {
   // Simulated API call
@@ -40,7 +40,7 @@ const NewsCard = ({ title, description, shortDescription, link }) => (
   </motion.div>
 );
 
-const ImageCard = ({ title, imageSrc, link }) => (
+const ImageCard = ({ title, imageSrc }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -52,14 +52,6 @@ const ImageCard = ({ title, imageSrc, link }) => (
     </CardHeader>
     <CardContent>
       <img src={imageSrc} alt={title} className="w-full h-auto object-cover rounded-md" />
-      <a 
-        href={link} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800"
-      >
-        View full chart <ExternalLink className="ml-1 h-4 w-4" />
-      </a>
     </CardContent>
   </motion.div>
 );
@@ -147,18 +139,15 @@ const Index = () => {
                 <ImageCard
                   title="Smart Contract Deployments"
                   imageSrc="/placeholder.svg"
-                  link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
                 />
                 <ImageCard
                   title="Revenue"
                   imageSrc="/placeholder.svg"
-                  link="https://tokenterminal.com/terminal/metrics/revenue"
                 />
               </div>
               <ImageCard
                 title="Total Value Locked"
                 imageSrc="/placeholder.svg"
-                link="https://tokenterminal.com/terminal/metrics/tvl"
               />
             </CardContent>
           </Card>
