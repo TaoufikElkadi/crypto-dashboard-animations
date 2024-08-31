@@ -9,17 +9,17 @@ const fetchIndustryNews = async () => {
   // Simulated API call
   return {
     partnerships: [
-      { id: 1, title: "Binance Partners with Mastercard", description: "Binance and Mastercard launch a new crypto card, expanding cryptocurrency usage in everyday transactions.", shortDescription: "New crypto card expands everyday crypto usage.", link: "https://twitter.com/binance/status/1234567890" },
-      { id: 2, title: "Coinbase and BlackRock Partnership", description: "Coinbase teams up with BlackRock to provide institutional clients with crypto trading and custody services.", shortDescription: "Institutional crypto services expanded through partnership.", link: "https://blog.coinbase.com/example-post" },
+      { id: 1, title: "Binance and Mastercard end crypto card partnership.", description: "Mastercard (MA.N), opens new tab and crypto exchange Binance will end their four crypto card programmes in Argentina, Brazil, Colombia and Bahrain as of Sept. 22, a spokesperson for Mastercard said via email on Thursday.", link: "https://www.reuters.com/business/finance/mastercard-binance-end-crypto-card-partnership-2023-08-24/" },
+      { id: 2, title: "Coinbase and BlackRock Partnership", description: "Coinbase teams up with BlackRock to provide institutional clients with crypto trading and custody services.", link: "https://www.etfstream.com/articles/blackrock-partners-with-coinbase-to-expand-crypto-offering" },
     ],
     vcRaises: [
-      { id: 1, title: "Optimism Raises $150M in Series B", description: "Ethereum Layer 2 solution Optimism secures $150M in Series B funding to scale its infrastructure.", shortDescription: "Layer 2 solution secures major funding for scaling.", link: "https://twitter.com/optimismFND/status/1234567891" },
-      { id: 2, title: "Aave Secures $25M for Institutional Adoption", description: "DeFi protocol Aave raises $25M to accelerate institutional adoption of decentralized finance.", shortDescription: "DeFi protocol raises funds to boost institutional adoption.", link: "https://medium.com/aave/example-post" },
+      { id: 1, title: "Optimism Raises $150M in Series B", description: "Ethereum Layer 2 solution Optimism secures $150M in Series B funding to scale its infrastructure.",  link: "https://cryptobriefing.com/optimism-raises-150m-in-series-b-round/" },
+      { id: 2, title: "Aave Secures $25M for Institutional Adoption", description: "DeFi protocol Aave raises $25M to accelerate institutional adoption of decentralized finance.", link: "https://www.cryptoknowmics.com/news/aave-raises-25m-in-its-latest-venture-capital-investment-round" },
     ],
   };
 };
 
-const NewsCard = ({ title, description, shortDescription, link }) => (
+const NewsCard = ({ title, description, link }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -27,7 +27,6 @@ const NewsCard = ({ title, description, shortDescription, link }) => (
     className="bg-white p-6 rounded-lg shadow-md mb-4 border border-gray-200"
   >
     <h3 className="font-bold text-xl text-gray-800 mb-2">{title}</h3>
-    <p className="text-gray-600 mb-2 text-sm">{shortDescription}</p>
     <p className="text-gray-700 mb-4 text-sm">{description}</p>
     <a 
       href={link} 
@@ -40,7 +39,7 @@ const NewsCard = ({ title, description, shortDescription, link }) => (
   </motion.div>
 );
 
-const ImageCard = ({ title, imageSrc }) => (
+const ImageCard = ({ title, imageSrc, description }) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.95 }}
     animate={{ opacity: 1, scale: 1 }}
@@ -51,6 +50,7 @@ const ImageCard = ({ title, imageSrc }) => (
       <CardTitle className="text-black">{title}</CardTitle>
     </CardHeader>
     <CardContent>
+      <p className="text-sm text-gray-600 mb-2">{description}</p>
       <img src={imageSrc} alt={title} className="w-full h-auto object-cover rounded-md" />
     </CardContent>
   </motion.div>
@@ -137,17 +137,20 @@ const Index = () => {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <ImageCard
-                  title="Smart Contract Deployments"
-                  imageSrc="/placeholder.svg"
+                  title="Ethereum Layer 2 Transaction Surge"
+                  imageSrc="/WeeklyTransactionCountETHL1vsL2.jpeg"
+                  description="Ethereum Layer 2 solutions like Arbitrum and Base are experiencing rapid growth in transaction volumes, significantly outpacing Layer 1 activity in 2024."
                 />
                 <ImageCard
-                  title="Revenue"
-                  imageSrc="/placeholder.svg"
+                  title="EURC Supply on Base"
+                  imageSrc="/TTEURCSupply.jpeg"
+                  description="The EURC supply on the Base network has steadily increased throughout August 2024, reaching over $12.5 million in outstanding supply."
                 />
               </div>
               <ImageCard
                 title="Total Value Locked"
-                imageSrc="/placeholder.svg"
+                imageSrc="/AITokensMindshareKaito.jpeg"
+                description=" The chart highlights the market dominance of AI-focused cryptocurrencies, with TAO and NEAR leading in mindshare, accounting for 15.56% and 14.79% respectively, followed by FET at 8.95%."
               />
             </CardContent>
           </Card>
@@ -159,7 +162,7 @@ const Index = () => {
           </CardHeader>
           <CardContent>
             <img 
-              src="/story-protocol.png" 
+              src="/story-protocol.jpeg" 
               alt="Story Protocol for beginners" 
               className="w-full h-auto object-contain rounded-lg shadow-lg mb-4"
             />
