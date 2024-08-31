@@ -138,16 +138,23 @@ const Index = () => {
             <CardHeader>
               <CardTitle className="text-black">Market Metrics</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <ImageCard
+                  title="Smart Contract Deployments"
+                  imageSrc="/placeholder.svg"
+                  link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
+                />
+                <ImageCard
+                  title="Revenue"
+                  imageSrc="/placeholder.svg"
+                  link="https://tokenterminal.com/terminal/metrics/revenue"
+                />
+              </div>
               <ImageCard
-                title="Smart Contract Deployments"
+                title="Total Value Locked"
                 imageSrc="/placeholder.svg"
-                link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
-              />
-              <ImageCard
-                title="Revenue"
-                imageSrc="/placeholder.svg"
-                link="https://tokenterminal.com/terminal/metrics/revenue"
+                link="https://tokenterminal.com/terminal/metrics/tvl"
               />
             </CardContent>
           </Card>
