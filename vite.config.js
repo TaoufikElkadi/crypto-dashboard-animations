@@ -9,6 +9,7 @@ export default defineConfig({
     host: "::",
     port: "8080",
   },
+  base: "/crypto-dashboard-animations/",  // Add this line to set the base URL
   plugins: [react()],
   resolve: {
     alias: [
