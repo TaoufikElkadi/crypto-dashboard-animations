@@ -108,29 +108,31 @@ const Index = () => {
               <CardTitle className="text-black">Industry News</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                {isLoadingNews ? (
-                  <>
-                    <Skeleton className="h-[120px] w-full" />
-                    <Skeleton className="h-[120px] w-full" />
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4">Brand Partnerships</h3>
+              {isLoadingNews ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Skeleton className="h-[300px] w-full" />
+                  <Skeleton className="h-[300px] w-full" />
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">Brand Partnerships</h3>
+                    <div className="space-y-4">
                       {industryNews.partnerships.map((news) => (
                         <NewsCard key={news.id} {...news} />
                       ))}
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-4">VC Raises & Announcements</h3>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4">VC Raises & Announcements</h3>
+                    <div className="space-y-4">
                       {industryNews.vcRaises.map((news) => (
                         <NewsCard key={news.id} {...news} />
                       ))}
                     </div>
-                  </>
-                )}
-              </div>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
