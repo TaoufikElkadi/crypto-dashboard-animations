@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, Menu } from 'lucide-react';
 
 const fetchIndustryNews = async () => {
   // Simulated API call
@@ -64,6 +64,25 @@ const ImageCard = ({ title, imageSrc, link }) => (
   </motion.div>
 );
 
+const Header = () => (
+  <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-lg">
+    <div className="container mx-auto flex justify-between items-center">
+      <div className="flex items-center space-x-4">
+        <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          {/* Placeholder for logo */}
+          <span className="text-blue-800 font-bold text-xl">B</span>
+        </div>
+        <h1 className="text-2xl font-bold">Bitvavo Insights</h1>
+      </div>
+      <nav>
+        <button className="p-2 hover:bg-blue-700 rounded-full transition-colors duration-200">
+          <Menu className="h-6 w-6" />
+        </button>
+      </nav>
+    </div>
+  </header>
+);
+
 const Index = () => {
   const { data: industryNews, isLoading: isLoadingNews } = useQuery({
     queryKey: ['industryNews'],
@@ -71,84 +90,88 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-4xl font-bold mb-8 text-center text-black"
-      >
-        Crypto Insights Dashboard
-      </motion.h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <Card>
+    <div className="min-h-screen bg-gray-100">
+      <Header />
+      <main className="container mx-auto px-4 py-8">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl font-bold mb-8 text-center text-gray-800"
+        >
+          Crypto Market Overview
+        </motion.h2>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="text-black">Industry News</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {isLoadingNews ? (
+                  <>
+                    <Skeleton className="h-[120px] w-full" />
+                    <Skeleton className="h-[120px] w-full" />
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-4">Brand Partnerships</h3>
+                      {industryNews.partnerships.map((news) => (
+                        <NewsCard key={news.id} {...news} />
+                      ))}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-4">VC Raises & Announcements</h3>
+                      {industryNews.vcRaises.map((news) => (
+                        <NewsCard key={news.id} {...news} />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-black">Market Metrics</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <ImageCard
+                title="Smart Contract Deployments"
+                imageSrc="/placeholder.svg"
+                link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
+              />
+              <ImageCard
+                title="Revenue"
+                imageSrc="/placeholder.svg"
+                link="https://tokenterminal.com/terminal/metrics/revenue"
+              />
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-black">Brand Partnerships</CardTitle>
+            <CardTitle className="text-black">Project Spotlight: Story Protocol</CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoadingNews ? (
-              <div className="space-y-2">
-                <Skeleton className="h-[120px] w-full" />
-                <Skeleton className="h-[120px] w-full" />
-              </div>
-            ) : (
-              industryNews.partnerships.map((news) => (
-                <NewsCard key={news.id} title={news.title} description={news.description} shortDescription={news.shortDescription} link={news.link} />
-              ))
-            )}
+            <img 
+              src="/story-protocol.png" 
+              alt="Story Protocol for beginners" 
+              className="w-full h-auto object-contain rounded-lg shadow-lg mb-4"
+            />
+            <p className="text-sm text-gray-600">
+              Story Protocol is the world's first IP Blockchain, designed to make intellectual property programmable. 
+              It offers a universal license agreement to tokenize IP and set legally binding license terms. 
+              The protocol uses a Proof-of-Creativity mechanism to manage licenses (ERC-721) and royalties (ERC-20), 
+              powering applications from AI models to creator tools and IPFi.
+            </p>
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-black">VC Raises & Announcements</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isLoadingNews ? (
-              <div className="space-y-2">
-                <Skeleton className="h-[120px] w-full" />
-                <Skeleton className="h-[120px] w-full" />
-              </div>
-            ) : (
-              industryNews.vcRaises.map((news) => (
-                <NewsCard key={news.id} title={news.title} description={news.description} shortDescription={news.shortDescription} link={news.link} />
-              ))
-            )}
-          </CardContent>
-        </Card>
-      </div>
-
-      <h2 className="text-2xl font-semibold mb-4 text-black">Market Metrics</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <ImageCard
-          title="Smart Contract Deployments"
-          imageSrc="/placeholder.svg"
-          link="https://tokenterminal.com/terminal/metrics/contracts-deployed"
-        />
-        <ImageCard
-          title="Revenue"
-          imageSrc="/placeholder.svg"
-          link="https://tokenterminal.com/terminal/metrics/revenue"
-        />
-      </div>
-
-      <h2 className="text-2xl font-semibold mb-4 text-black">Project Spotlight: Story Protocol</h2>
-      <Card>
-        <CardContent className="p-6">
-          <img 
-            src="/story-protocol.png" 
-            alt="Story Protocol for beginners" 
-            className="w-full h-auto object-contain rounded-lg shadow-lg"
-          />
-        </CardContent>
-      </Card>
-      <p className="mt-4 text-sm text-gray-600">
-        Story Protocol is the world's first IP Blockchain, designed to make intellectual property programmable. 
-        It offers a universal license agreement to tokenize IP and set legally binding license terms. 
-        The protocol uses a Proof-of-Creativity mechanism to manage licenses (ERC-721) and royalties (ERC-20), 
-        powering applications from AI models to creator tools and IPFi.
-      </p>
+      </main>
     </div>
   );
 };
