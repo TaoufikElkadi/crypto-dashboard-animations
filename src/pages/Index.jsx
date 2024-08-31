@@ -102,8 +102,8 @@ const Index = () => {
           Crypto Market Overview
         </motion.h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <Card className="lg:col-span-2">
+        <div className="mb-12">
+          <Card>
             <CardHeader>
               <CardTitle className="text-black">Industry News</CardTitle>
             </CardHeader>
@@ -133,13 +133,15 @@ const Index = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
 
+        <div className="mb-12">
           <Card>
             <CardHeader>
               <CardTitle className="text-black">Market Metrics</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <ImageCard
                   title="Smart Contract Deployments"
                   imageSrc="/placeholder.svg"
